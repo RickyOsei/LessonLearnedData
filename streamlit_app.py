@@ -94,7 +94,7 @@ if st.session_state["page"] == "Search Lessons":
                 if st.button("Generate Network Graph"):
                     go_to_page("Network Graph")
 
-    # Display lessons as styled cards
+    # Main Panel: List of Lessons as Styled Cards
     if st.session_state["lessons"]:
         st.markdown("### Relevant Lessons")
         card_styles = """
@@ -129,13 +129,14 @@ if st.session_state["page"] == "Search Lessons":
 
         for lesson in st.session_state["lessons"]:
             card_html = f"""
-            <div class="card" onclick="parent.postMessage('{lesson['id']}', '*')">
+            <div class="card">
                 <h4>Lesson ID {lesson['id']}</h4>
                 <p>{lesson['description'][:80]}...</p>
             </div>
             """
-            st.components.v1.html(card_html, height=80)
-
+            # Proper rendering of HTML
+            if st.button(f"Select Lesson {lesson['id']}", key=f"lesson_{lesson['id']}"):
+                st.session_state["selected_doc_id"] = lesson["id"]
 
 # Page 2: Network Graph
 elif st.session_state["page"] == "Network Graph":
