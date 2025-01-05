@@ -1,1 +1,6 @@
 streamlit
+top2vec[sentence_transformers]
+pandas
+numpy
+networkx
+pyvis
